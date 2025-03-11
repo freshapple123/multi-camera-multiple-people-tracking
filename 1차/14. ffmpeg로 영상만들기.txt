@@ -1,0 +1,1 @@
+ffmpeg -framerate 15 -i "rgb_%05d_6.jpg" -c:v libx264 -pix_fmt yuv420p 6th_angle.mp4
