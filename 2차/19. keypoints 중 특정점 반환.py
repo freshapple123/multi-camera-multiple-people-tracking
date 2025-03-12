@@ -7,7 +7,8 @@ import numpy as np
 model = YOLO("yolov8n-pose.pt")
 
 # 정지영상 로드
-image_path = "C:/Users/Ok/Desktop/1st_angle/person_0.jpg"
+image_path = "C:/Users/Ok/Desktop/5th_angle/person_1.jpg"
+# image_path = "C:/Users/Ok/Desktop/1st_angle/person_0.jpg"
 img = cv2.imread(image_path)
 
 # YOLOv8 Pose 추론

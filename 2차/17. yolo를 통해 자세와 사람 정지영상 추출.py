@@ -7,8 +7,9 @@ model = YOLO("yolov8n-pose.pt")  # 모델 경로
 
 # 정지영상 로드
 # image_path = "C:/Users/Ok/Desktop/1st_angle/person_0.jpg"
-image_path = "C:/Users/Ok/Desktop/1st_angle/person_0.jpg"
-# image_path = "rgb_00046_1.jpg"
+# image_path = "C:/Users/Ok/Desktop/1st_angle/person_0.jpg"
+# image_path = "C:/Users/Ok/Desktop/5th_angle/person_1.jpg"
+image_path = "C:/Users/Ok/Desktop/rgb_00000_5.jpg"
 img = cv2.imread(image_path)
 
 # 이미지에서 포즈 추적
