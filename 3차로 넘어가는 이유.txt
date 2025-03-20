@@ -1,0 +1,2 @@
+교수님이 말하심
+=> multi angle에서 시도하지말고, single angle에서 다른 프레임에서 scene이 바뀌기 전에hiso를 비교해라 우선 이걸로 의미있는 결과를 유추해라
