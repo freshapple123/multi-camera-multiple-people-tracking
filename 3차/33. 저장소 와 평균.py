@@ -47,7 +47,7 @@ def get_cropped_and_histogram(kp_array, frame, person_idx, desired_indices):
 
 
 # 비디오 파일 경로 설정
-video_path = r"D:\REid\data\retail\MMPTracking_training\To_seperate_for_video\4th_angle\4th_angle.mp4"
+video_path = r"D:\REid\data\retail\MMPTracking_training\To_seperate_for_video\1st_angle\1st_angle.mp4"
 cap = cv2.VideoCapture(video_path)
 
 # YOLO 모델 로드
