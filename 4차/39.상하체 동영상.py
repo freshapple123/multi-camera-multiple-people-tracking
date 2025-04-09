@@ -56,7 +56,7 @@ def get_cropped_histogram(points, frame):
 
 
 # 영상 설정
-a = 3
+a = 2
 
 if a == 1:
     video_path = r"D:\REid\data\retail\MMPTracking_training\To_seperate_for_video\1st_angle\1st_angle.mp4"
