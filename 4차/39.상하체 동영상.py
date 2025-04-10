@@ -173,13 +173,6 @@ while True:
                 2,
             )
 
-    # 오래된 사람 제거
-    for pid in list(person_db.keys()):
-        if pid not in current_ids:
-            person_db[pid]["frames_since_seen"] += 1
-            if person_db[pid]["frames_since_seen"] > 300:
-                del person_db[pid]
-
     cv2.imshow("Tracking", frame)
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
