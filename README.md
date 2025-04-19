@@ -53,3 +53,23 @@ Histogram-based methods offer low computational cost and are lightweight, making
 To address these limitations, this study proposes a real-time re-identification system that utilizes a lightweight AI model to pre-locate key regions, followed by a histogram-based comparison for final identification. This approach reduces the computational load while maintaining real-time applicability.
 
 Such a method suggests that in scenarios requiring real-time CCTV analysis, rule-based methods can be a more practical alternative to learning-based approaches, offering the potential for effective person re-identification even in resource-constrained environments.
+
+
+## 📚 Dataset Citation
+
+If you use this dataset in your research, please cite the following paper:
+
+**MMPTRACK: Large-scale Densely Annotated Multi-camera Multiple People Tracking Benchmark**  
+*Xiaotian Han, Quanzeng You, Chunyu Wang, Zhizheng Zhang, Peng Chu, Houdong Hu, Jiang Wang, Zicheng Liu*  
+arXiv:2111.15157
+
+BibTeX:
+```bibtex
+@misc{han2021mmptrack,
+    title={MMPTRACK: Large-scale Densely Annotated Multi-camera Multiple People Tracking Benchmark}, 
+    author={Xiaotian Han and Quanzeng You and Chunyu Wang and Zhizheng Zhang and Peng Chu and Houdong Hu and Jiang Wang and Zicheng Liu},
+    year={2021},
+    eprint={2111.15157},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
+}
