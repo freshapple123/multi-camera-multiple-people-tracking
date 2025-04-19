@@ -62,8 +62,34 @@ def get_full_body_histogram(kp_array, person_idx, frame):
     return extract_hs_histogram_from_cropped(cropped_img)
 
 
+def get_hair_histogram(kp_array, person_idx, frame):
+    keypoints = kp_array[person_idx]
+    if np.any(keypoints[[0, 1, 2, 5, 6], 2] < 0.5):
+        return None
+    nose = keypoints[0][:2]
+    left_eye = keypoints[1][:2]
+    right_eye = keypoints[2][:2]
+    left_shoulder = keypoints[5][:2]
+    right_shoulder = keypoints[6][:2]
+
+    x_min = int(min(left_eye[0], right_eye[0]) - 30)
+    x_max = int(max(left_eye[0], right_eye[0]) + 30)
+    y_top = int(min(left_eye[1], right_eye[1]) - 30)
+    y_bottom = int(min(left_shoulder[1], right_shoulder[1]) - 10)
+
+    h, w, _ = frame.shape
+    x_min, x_max = max(x_min, 0), min(x_max, w)
+    y_top, y_bottom = max(y_top, 0), min(y_bottom, h)
+
+    if y_bottom <= y_top or x_max <= x_min:
+        return None
+
+    cropped = frame[y_top:y_bottom, x_min:x_max]
+    return extract_hs_histogram_from_cropped(cropped)
+
+
 # -------------------- 영상 및 모델 로딩 --------------------
-a = 2
+a = 1
 if a == 1:
     video_path = r"D:\\REid\\data\\retail\\MMPTracking_training\\To_seperate_for_video\\1st_angle\\1st_angle.mp4"
 elif a == 2:
@@ -120,8 +146,14 @@ while True:
             else (None, None)
         )
         full_hist = get_full_body_histogram(kp_array, person_idx, frame)
+        hair_hist = get_hair_histogram(kp_array, person_idx, frame)
 
-        if up_hist is None and low_hist is None and full_hist is None:
+        if (
+            up_hist is None
+            and low_hist is None
+            and full_hist is None
+            and hair_hist is None
+        ):
             continue
 
         matched_id = None
@@ -129,15 +161,40 @@ while True:
 
         for pid, data in person_db.items():
             sim_list = []
+            low_threshold = 0.2
+            any_too_different = False
+
             if up_hist is not None and len(data["up_histories"]) > 0:
-                avg_up = get_hist_average(data["up_histories"])
-                sim_list.append(compare_histograms(up_hist, avg_up))
+                sim = compare_histograms(
+                    up_hist, get_hist_average(data["up_histories"])
+                )
+                sim_list.append(sim)
+                if sim < low_threshold:
+                    any_too_different = True
             if low_hist is not None and len(data["low_histories"]) > 0:
-                avg_low = get_hist_average(data["low_histories"])
-                sim_list.append(compare_histograms(low_hist, avg_low))
-            if full_hist is not None and len(data.get("full_histories", [])) > 0:
-                avg_full = get_hist_average(data["full_histories"])
-                sim_list.append(compare_histograms(full_hist, avg_full))
+                sim = compare_histograms(
+                    low_hist, get_hist_average(data["low_histories"])
+                )
+                sim_list.append(sim)
+                if sim < low_threshold:
+                    any_too_different = True
+            if full_hist is not None and len(data["full_histories"]) > 0:
+                sim = compare_histograms(
+                    full_hist, get_hist_average(data["full_histories"])
+                )
+                sim_list.append(sim)
+                if sim < low_threshold:
+                    any_too_different = True
+            if hair_hist is not None and len(data["hair_histories"]) > 0:
+                sim = compare_histograms(
+                    hair_hist, get_hist_average(data["hair_histories"])
+                )
+                sim_list.append(sim)
+                if sim < low_threshold:
+                    any_too_different = True
+
+            if any_too_different:
+                continue
 
             if len(sim_list) > 0:
                 similarity = np.mean(sim_list)
@@ -152,22 +209,27 @@ while True:
                 "up_histories": [],
                 "low_histories": [],
                 "full_histories": [],
+                "hair_histories": [],
                 "last_position": center_pos,
                 "frames_since_seen": 0,
             }
 
         if up_hist is not None:
             person_db[matched_id]["up_histories"].append(up_hist)
-            if len(person_db[matched_id]["up_histories"]) > 10:
+            if len(person_db[matched_id]["up_histories"]) > 15:
                 person_db[matched_id]["up_histories"].pop(0)
         if low_hist is not None:
             person_db[matched_id]["low_histories"].append(low_hist)
-            if len(person_db[matched_id]["low_histories"]) > 10:
+            if len(person_db[matched_id]["low_histories"]) > 15:
                 person_db[matched_id]["low_histories"].pop(0)
         if full_hist is not None:
             person_db[matched_id]["full_histories"].append(full_hist)
-            if len(person_db[matched_id]["full_histories"]) > 10:
+            if len(person_db[matched_id]["full_histories"]) > 15:
                 person_db[matched_id]["full_histories"].pop(0)
+        if hair_hist is not None:
+            person_db[matched_id]["hair_histories"].append(hair_hist)
+            if len(person_db[matched_id]["hair_histories"]) > 15:
+                person_db[matched_id]["hair_histories"].pop(0)
 
         person_db[matched_id]["last_position"] = center_pos
         current_ids.add(matched_id)

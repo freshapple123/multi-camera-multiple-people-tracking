@@ -63,7 +63,7 @@ def get_cropped_histogram(points, frame):
 # -------------------- 영상 및 모델 로딩 --------------------
 
 # 분석할 영상 설정 (1~5 선택 가능)
-a = 2
+a = 3
 if a == 1:
     video_path = r"D:\REid\data\retail\MMPTracking_training\To_seperate_for_video\1st_angle\1st_angle.mp4"
 elif a == 2:
