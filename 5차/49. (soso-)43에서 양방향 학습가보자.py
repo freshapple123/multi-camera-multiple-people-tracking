@@ -61,28 +61,29 @@ upper_indices = [5, 6, 11, 12]
 lower_indices = [11, 12, 15, 16]
 
 # -------- 카메라 파일 경로 설정 --------
-a = 5
-b = 6
+a = 1
+b = 5
 
 
 def get_angle_path(n):
     angle_str = (
         f"{n}st" if n == 1 else f"{n}nd" if n == 2 else f"{n}rd" if n == 3 else f"{n}th"
     )
-    return rf"D:\REid\data\retail\MMPTracking_training\To_seperate_for_video\{angle_str}_angle\{angle_str}_angle.mp4"
+    return rf"D:\\REid\\data\\retail\\MMPTracking_training\\To_seperate_for_video\\{angle_str}_angle\\{angle_str}_angle.mp4"
 
 
 video_paths = {"cam1": get_angle_path(a), "cam2": get_angle_path(b)}
-
 caps = {
     "cam1": cv2.VideoCapture(video_paths["cam1"]),
     "cam2": cv2.VideoCapture(video_paths["cam2"]),
 }
 
-# -------- 전역 DB --------
+# -------- 전역 DB 및 상태 변수 --------
 person_db = {}
 next_id = 0
-train_cam = "cam1"  # 이 카메라에서만 학습
+train_cam = "cam1"
+stable_match_counter = {}
+stable_threshold = 5
 
 print("▶ 멀티카메라 영상 분석 시작... 'Q' 키로 종료")
 
@@ -127,7 +128,6 @@ while True:
             if up_hist is None and low_hist is None:
                 continue
 
-            # -------- 매칭 --------
             matched_id = None
             max_similarity = -1
 
@@ -136,7 +136,6 @@ while True:
                 if up_hist is not None and len(data["up_histories"]) > 0:
                     avg_up = get_hist_average(data["up_histories"])
                     sim_list.append(compare_histograms(up_hist, avg_up))
-
                 if low_hist is not None and len(data["low_histories"]) > 0:
                     avg_low = get_hist_average(data["low_histories"])
                     sim_list.append(compare_histograms(low_hist, avg_low))
@@ -147,7 +146,6 @@ while True:
                         matched_id = pid
                         max_similarity = similarity
 
-            # -------- 학습 카메라일 때만 새로운 ID 생성 --------
             if cam_name == train_cam:
                 if matched_id is None or max_similarity < 0.3:
                     matched_id = next_id
@@ -158,21 +156,34 @@ while True:
                         "last_position": center_pos,
                     }
 
+            # 안정적 매칭 카운터 관리
+            if matched_id is not None:
+                if matched_id not in stable_match_counter:
+                    stable_match_counter[matched_id] = 0
+                if cam_name != train_cam:
+                    if max_similarity >= 0.3:
+                        stable_match_counter[matched_id] += 1
+                    else:
+                        stable_match_counter[matched_id] = 0
+
+            allow_training = cam_name == train_cam or (
+                cam_name != train_cam
+                and stable_match_counter.get(matched_id, 0) >= stable_threshold
+            )
+
+            if allow_training and matched_id is not None:
                 if up_hist is not None:
                     person_db[matched_id]["up_histories"].append(up_hist)
                     if len(person_db[matched_id]["up_histories"]) > 10:
                         person_db[matched_id]["up_histories"].pop(0)
-
                 if low_hist is not None:
                     person_db[matched_id]["low_histories"].append(low_hist)
                     if len(person_db[matched_id]["low_histories"]) > 10:
                         person_db[matched_id]["low_histories"].pop(0)
-
                 person_db[matched_id]["last_position"] = center_pos
 
-            # -------- 매칭된 경우에만 ID 표시 --------
-            if center_pos is not None:
-                # if matched_id == 1 and center_pos is not None:
+            # if center_pos is not None:
+            if matched_id == 0 and center_pos is not None:
 
                 if cam_name != train_cam and max_similarity < 0.3:
                     continue
@@ -186,14 +197,12 @@ while True:
                     2,
                 )
 
-    # -------- 화면 출력 --------
     for cam_name in frames:
         cv2.imshow(f"Tracking - {cam_name}", frames[cam_name])
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
 
-# -------- 종료 처리 --------
 for cap in caps.values():
     cap.release()
 cv2.destroyAllWindows()
