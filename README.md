@@ -11,7 +11,8 @@ I am still experimenting and using it as a repository during the process.
 
 
 
-Uploading single_angle_re_id_version2.mp4…
+https://github.com/user-attachments/assets/90fb69bd-4747-4182-8ae0-57bc993dcca4
+
 
 
 
