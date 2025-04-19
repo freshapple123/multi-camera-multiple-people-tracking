@@ -1,11 +1,11 @@
-# Multi-camera Multiple People Tracking
+# Multi-camera Multiple People Tracking (real-time)
 계속해서 실험중이고 실험중간에 저장소로 사용중입니다.  
 I am still experimenting and using it as a repository during the process.  
 
 ---
-## 🔍 Re-ID 실험 결과
+## 🔍 Re-ID 실험 결과 (real-time)
 
-### 📌 Single-Angle Re-ID
+### 📌 Single-Angle Re-ID (real-time)
 - **방식**: 단일 각도에서 촬영된 영상 기반  
 
 
@@ -18,7 +18,7 @@ https://github.com/user-attachments/assets/90fb69bd-4747-4182-8ae0-57bc993dcca4
 
 ---
 
-### 🎥 Multi-Angle Re-ID
+### 🎥 Multi-Angle Re-ID (real-time)
 
 #### ✅ ID = 0 (다각도 추적 결과)
 
