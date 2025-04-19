@@ -9,7 +9,10 @@ I am still experimenting and using it as a repository during the process.
 - **방식**: 단일 각도에서 촬영된 영상 기반  
 
 
-https://github.com/user-attachments/assets/b4adc779-c23b-4d6d-84c4-8c83c17ba59a
+
+
+Uploading single_angle_re_id_version2.mp4…
+
 
 
 ---
