@@ -2,17 +2,32 @@
 계속해서 실험중이고 실험중간에 저장소로 사용중입니다.  
 I am still experimenting and using it as a repository during the process.  
 
-single_angle re_id<br>
+---
+## 🔍 Re-ID 실험 결과
+
+### 📌 Single-Angle Re-ID
+- **방식**: 단일 각도에서 촬영된 영상 기반  
+
+
+https://github.com/user-attachments/assets/b4adc779-c23b-4d6d-84c4-8c83c17ba59a
+
+
+---
+
+### 🎥 Multi-Angle Re-ID
+
+#### ✅ ID = 0 (다각도 추적 결과)
+
+
+https://github.com/user-attachments/assets/f98deac0-4ee7-4fe8-927e-234a00285b13
 
 
 
-https://github.com/user-attachments/assets/f61e5413-34a2-4774-ac0e-f156250f46c7
-
-multi_angle re_id (id=0)<br>
+#### ✅ ID = 1 (다각도 추적 결과)
 
 
-multi_angle re_id (id=1)<br>
 
+https://github.com/user-attachments/assets/b37e6b83-4d14-4901-884c-7a6118b19711
 
 
 ## 📄 초록 (Abstract)
