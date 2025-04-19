@@ -3,7 +3,7 @@
 I am still experimenting and using it as a repository during the process.  
 
 ---
-## 🔍 Re-ID 실험 결과 (real-time)
+## 🔍 Re-ID 실험 중간 결과 (real-time) (25.04.20)
 
 ### 📌 Single-Angle Re-ID (real-time)
 - **방식**: 단일 각도에서 촬영된 영상 기반  
@@ -18,7 +18,7 @@ https://github.com/user-attachments/assets/90fb69bd-4747-4182-8ae0-57bc993dcca4
 
 ---
 
-### 🎥 Multi-Angle Re-ID (real-time)
+### 🎥 Multi-Angle Re-ID (real-time) 
 
 #### ✅ ID = 0 (다각도 추적 결과)
 
