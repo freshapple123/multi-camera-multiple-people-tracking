@@ -2,8 +2,7 @@
 계속해서 실험중이고 실험중간에 저장소로 사용중입니다.  
 I am still experimenting and using it as a repository during the process.  
 
-single_angle re_id
-https://github.com/user-attachments/assets/a2cf9fcb-4ad0-4034-8025-15c05d8941d5
+single_angle re_id<br>
 
 
 
