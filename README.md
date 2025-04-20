@@ -3,9 +3,9 @@
 I am still experimenting and using it as a repository during the process.  
 
 ---
-## 🔍 Re-ID 실험 중간 결과 (real-time) (25.04.07)
+## 🔍 Re-ID 실험 중간 결과 (real-time)
 
-### 📌 Single-Angle Re-ID (real-time)
+### 📌 Single-Angle Re-ID (real-time) (25.04.07)
 - **방식**: 단일 각도에서 촬영된 영상 기반  
 
 
