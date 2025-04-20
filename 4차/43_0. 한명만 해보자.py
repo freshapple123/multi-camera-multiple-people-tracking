@@ -61,8 +61,8 @@ upper_indices = [5, 6, 11, 12]
 lower_indices = [11, 12, 15, 16]
 
 # -------- 카메라 파일 경로 설정 --------
-a = 5
-b = 6
+a = 1
+b = 5
 
 
 def get_angle_path(n):

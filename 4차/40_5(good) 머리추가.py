@@ -89,7 +89,7 @@ def get_hair_histogram(kp_array, person_idx, frame):
 
 
 # -------------------- 영상 및 모델 로딩 --------------------
-a = 5
+a = 2
 if a == 1:
     video_path = r"D:\\REid\\data\\retail\\MMPTracking_training\\To_seperate_for_video\\1st_angle\\1st_angle.mp4"
 elif a == 2:
