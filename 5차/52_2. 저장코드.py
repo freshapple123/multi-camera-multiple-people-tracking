@@ -168,6 +168,21 @@ global_id_map = {}
 next_global_id = 0
 frame_count = 0
 
+
+# ▶▶▶ 저장용 VideoWriter 설정 추가
+fourcc = cv2.VideoWriter_fourcc(*"mp4v")  # 또는 'XVID'
+fps = caps["cam1"].get(cv2.CAP_PROP_FPS) * 1.2
+width = int(caps["cam1"].get(cv2.CAP_PROP_FRAME_WIDTH))
+height = int(caps["cam1"].get(cv2.CAP_PROP_FRAME_HEIGHT))
+output_path_cam1 = "output_cam1_with_tracking.mp4"  # cam1용 비디오 저장 경로
+output_path_cam2 = "output_cam2_with_tracking.mp4"  # cam2용 비디오 저장 경로
+output_path_cam3 = "output_cam3_with_tracking.mp4"  # cam2용 비디오 저장 경로
+# 두 개의 VideoWriter 객체 생성
+out_cam1 = cv2.VideoWriter(output_path_cam1, fourcc, fps, (width, height))
+out_cam2 = cv2.VideoWriter(output_path_cam2, fourcc, fps, (width, height))
+out_cam3 = cv2.VideoWriter(output_path_cam3, fourcc, fps, (width, height))
+
+
 model = YOLO("yolov8n-pose.pt")
 upper_indices = [5, 6, 11, 12]
 lower_indices = [11, 12, 15, 16]
@@ -255,6 +270,14 @@ while True:
                 )
 
     for cam in frames:
+        # 각 카메라에 대해 저장
+        if cam == "cam1":
+            out_cam1.write(frames[cam])  # cam1 비디오 저장
+        elif cam == "cam2":
+            out_cam2.write(frames[cam])  # cam2 비디오 저장
+        elif cam == "cam3":
+            out_cam3.write(frames[cam])  # cam2 비디오 저장
+
         cv2.imshow(f"Tracking - {cam}", frames[cam])
 
     frame_count += 1
@@ -266,4 +289,9 @@ while True:
 
 for cap in caps.values():
     cap.release()
+
+
+out_cam1.release()  # cam1 비디오 저장 종료
+out_cam2.release()  # cam2 비디오 저장 종료
+out_cam3.release()  # cam2 비디오 저장 종료
 cv2.destroyAllWindows()

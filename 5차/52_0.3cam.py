@@ -8,8 +8,8 @@ from ultralytics import YOLO
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 # -------------------- 설정 --------------------
-COMPARE_INTERVAL = 30
-SIMILARITY_THRESHOLD = 0.4
+COMPARE_INTERVAL = 18
+SIMILARITY_THRESHOLD = 0.35
 SIMILARITY_WEIGHTS = {"up": 0.3, "low": 0.3, "full": 0.2, "hair": 0.2}
 
 
