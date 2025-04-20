@@ -1,6 +1,14 @@
 # Multi-camera Multiple People Tracking (real-time)
-계속해서 실험중이고 실험중간에 저장소로 사용중입니다.  
-I am still experimenting and using it as a repository during the process.  
+
+계속해서 실험 중이며, 실험 중간 결과를 저장하는 용도로 본 저장소를 사용하고 있습니다.  
+I am still experimenting and using this repository to archive intermediate results.
+
+---
+
+본 프로젝트는 **연구 목적**으로 수행 중이며, **YOLOv8 Pose와 HS Histogram 기반의 Re-ID** 방식을 적용하고 있습니다.  
+모든 실험은 **GPU 환경 없이, CPU 상에서 실시간 동작을 목표로 구현**되고 있습니다.  
+All experiments are conducted **without GPU acceleration**, running **YOLO and the tracking system purely on CPU** to simulate lightweight deployment environments.
+
 
 ---
 ## 🔍 Re-ID 실험 중간 결과 (real-time)
